@@ -31,6 +31,13 @@ Consistency: h is consistent iff h(x) = f(x)\\
 \)If h belongs to H, then it is consistent
 \subsection*{Naive Bayes}\\
 \subsubsection*{Bayes Rule}\\
+There can be relatively lesser occurrences of one class
+\\
+prior odds / likelihood = posterior odds\\
+Bayesian thinking\\
+How likely is something not going to work?
+\\
+Hold your beliefs, shift your beliefs as u encounter with the world\\
 $P(y | x) = \frac{P(x | y) \times P(y)}{P(x)}$
 \\
 P(X_{1} = 0, X_{2} = -1) = P(X_{1} = 0 \;|\ C_{1}) \times P(X_{2} = -1 \;|\ C_{1}) \times P(C_{1})
@@ -86,9 +93,96 @@ Given a set of news articles from many different news websites, find out what ar
 \\\\
 From the user usage patterns on a website, figure out what different groups of users exist.
 \subsection*{RL}\\
-Planning problems\\
-choices that maximise the outcome
+Key usage: Planning problems\\
+Goal of markov property: operate in ease\\
+choices that maximise the outcome\\
 \\
+Precision vs control\\
+Decisions we make the optimize\\
+\\
+Prediction allows us to evaluate how good a policy is for a state space\\
+Control\\
+Reward at any step is optimal, highest reward
+\\
+continuous MDP - common in robots\\
+No supervisor, only reward signal\\
+Reward is a scalar feedback\\
+whether one state vs the other is preferred\\
+\\
+RL Challenge: Does not have a good idea if it is right to do, which one is feasible, figuring out rules, which gives the best reward
+\\
+Given action will give observation and reward\\
+Does not know the rules\\
+\\
+Planning Challenge:\\
+A* search - Going through the search space to figure the appropriate action\\
+what if i did this, what kind of consequences
+\\
+Rules are known\\
+Uses a search space which requires tree search
+\\
+\\
+Action affects the subsequent states\\
+Action $\rightarrow$ Observation (what state it is in) $\rightarrow$  Reward\\
+time t will not take the final reward but t - 1\\
+Sometimes actions affect the observations\\
+May contain irrelevant information of the state at time t\\
+Although we have large field of vision, our neural cortex is trying to observe t changes in the environment\\
+Function of history is not visible to the environment and is specific to agent\\
+State - what information that we have in the brain is what we are going to need to predict the future\\
+\\
+\textbf{Fully observable}\\
+The state can be represented different based on how we want the agent to see the sequence\\
+congruent between the agent and the environment\\
+\\
+\textbf{Partially observable}\\
+Align/ localize itself based on the map e.g. game
+\\
+Represented state can influence the agent
+\\
+Depending on the agent, we can end up in a different state\\
+E.g. if we want to turn the rotor around the corner, it may turn out not to behave that way
+\\
+Recurrent neural networks\\
+Using ReLu to construct each state in deep learning
+\subsubsection*{Policy}
+Look through the mapping function\\
+Deterministic $s_{1}$ to $a_{1}$ \\
+Stochastic Take a particular action with a probability\\
+\\
+Value function - future reward\\
+Sum of expected reward, reward farther in the future will have gamma to discount it\\
+Model - probability that it will go to the next state, sum over all possible actions has to be 1
+\\\\
+\textbf{Agent taxonomy}\\
+Value Based\\
+Policy - in this state we take a particular action\\
+Actor Critic - model based
+\\
+\subsection*{Exploration vs Exploitation}
+Going to the restaurant that i like \\
+Exploration - discover more information about the environment
+\\
+Exploitation - Exploits known information to maximise reward
+\\\\
+\subsection*{State transition probability matrix}\\
+Represented with the symbol P\\
+some of the values are 0 in the transition matrix if it cannot move to a particular state\\
+episodes are finite\\
+there are always probability attach to the state, eventually it will reach the terminal state
+\subsection{Markov Reward process}
+Attach the reward and discount\\
+Differentiating reward,create two different states with different reward\\
+$E(r_{t+1} | ..)$ immediately receive the reward in next time step
+\\\\
+Discount factor$\gamma $
+\\ Near sighted - given where i am now where should I go
+\\ Far sighted - sum all the rewards add all of them, favor longer samples (should have more reward)
+\\
+\textbf{Role of Discount}\\
+Infinitely sample the cycle, a lot of uncertainties on the future
+\subsection{Bellman equation}
+Reward based on executing the state
 \newpage\noindent
 \subsection*{Find S}
 1.Initialise h to most specific h\\
@@ -150,8 +244,8 @@ $ -2 X^\top (Y - X * \theta) + 2 * \alpha * \theta $
 \subsection*{Noise}
 Not deterministic only deterministic for f(x) = 0 \\
 y - f(x)\\
-P(y | x)\\
-Noisy target = E[y|x] + (y - f(x))
+$P(y | x)$\\
+Noisy target = $E[y|x] + (y - f(x))$
 \\
 \subsubsection*{Stochastic noise vs Deterministic}
 
