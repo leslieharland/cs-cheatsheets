@@ -260,7 +260,14 @@ second k means NN search (can also apply mean-shift)\\
 \\
 \\histogram is 100 dimension vector also
 \\
-texton histogram as a feature for segmentation will not give a clear segmentation, problematic edges, results in a pixelated image for the texture
+Feature Representation\\
+Filter bank Response\\
+Texton histogram\\
+\\
+Note: Texton histogram as a feature for segmentation will not give a clear segmentation, problematic edges, results in a pixelated image for the texture (not localised)\\
+Good localization, pixel from the 1 pixel or all over is the same
+\\
+CNN is aggregation of many filters, take a feature response and apply another kernel to it
 \\
 blurring each channel independently (2d blurring),
 now we are blurring the filter response
@@ -284,17 +291,22 @@ A: having very different feature response\\
 Q: Why 3 clusters?\\
 A: there is nothing to distinguish the skin from the background
 \\
-
+\subsection*{Quiz 1}
+Red and green considered equally, but blue is not considered at all\\
+Maximum shades of grey will not be the shade
+\\
 \section*{L7 notes}
 \subsection*{Some terms}
 SSD\\
+keypoints are also corners or interest points\\
 low error will look dark, high error will look bright\\
-shape is going to affect the elipse, size does not matters	\\
+shape is going to affect the ellipse, size does not matters	\\
 H = [0 0 ; 0 C] gradient is x direction is 0\\
 H = [A 0 ; 0 0] gradient is y direction is 0\\
 \\
 greedy approach non-maximum suppression has keypoints approximately in the same location as it looks for areas that has high contrast
 \\
+automatic scale selection, harris is equivariant to changes of scale\\
 \subsection*{Weights of derivative}
 gaussian before we do the summation for the weights, more weight at the center, less weights at the edge
 \\
@@ -304,9 +316,139 @@ Instead of applying the effects, we are looking at two viewpoints under two diff
 highest response has a signal has characteristic scale that has the same as gaussian, width of signal corresponds in signal charasteristic
 	\\\\
 	Harris operator is more efficient compared to eigen value decomposition\\
+	If the region is unusual then it is difficult for matching, approximated distinctiveness with SSD error
+	\\
+	Linearize with 2nd moment matrix\\
+	Quantify distinctiveness with eigenvalues of H 
+	\\
+	R is the cornerness is defined as \\
+	R = det(H) - k $trace^{2}$(H)
+	\\\\
 	Values can be obtained from the matrix itself
 	\\\\
 LoG finds blobs (keypoint detector that tries to find roughly circular regions)
 maximum scale is already built-in
 (maximum size of the kernel wrt to image)
+\\\\
+Auto correlation: Create a template of the patch, shift it around where I use the local patch
+\\
+Q: Is template the benchmark for comparison?
+A: strongest peak where it matches to itself
+Refer to template matching\\
+\\
+No matter where u shift the template, will get a strong response at the sky\\
+Third dimension is the intensity
+\\
+We need 3d… How do we analyse the points without looking at 3d\\
+\\
+$\lambda_{min}$ and $\lambda_{max}$  are perpendicular to each other\\
+\\
+SSD error E(u, v)\\
+Error will be 0 or greater\\
+H is always positive definite\\
+Semi definite where there is 0 case, flat region only in synthetic images
+\\
+Cross section is approximately circular ( a lot of change in all directions)\\
+Direction of the fastest change perpendicular to the slowest change will be approximately equal\\
+Which direction I change in it is going to be different
+\\
+Contrast causes the threshold\\
+$\lambda_{min}$ would be small as $({\lambda_{min}})^{-\frac{1}{2}}$
+where there is no change on the straight line \\
+\\
+\\
+Q: Clustering the responses of the textons\\
+A: The response are the data points, each feature response is 1 dimension, each data point cluster in 38 dimensions
+\\
+Dimensionality: Refer to L6 supplements\\
+One blue dot is 1 pixel, x location is 1 feature value and y location is 1 feature value
+\\
+Eigenvalue decomposition of pixel then u would get every pixel also\\
+axis length is very long
+\\\\
+Q: Texture and template matching are they the same?\\
+A: Correlate the long, what is the pattern vs the individual image. Detecting many texture in 1 image, so the feature response will be different in different part of images. Only a particular filter is tuned to that signature response. Normally we don't have to hand-create the filters. Deep learning to learn whole bunch of features, or gabor filter, can tune the filters. Over many dimensions can get a unique response to that example.
+\\\\
+Q: Filter bank to find the size\\
+A: Large enough filter bank or some way to count 
+\\\\
+Binary classification if the sheet is defect or not 
+\\\\
+Q: Why is the skin and background cannot be segmented?\\
+A: Texture of the background is very large, approximate scale of the marble is on par with the arm. Doing agnostic segmentation, we don't model the content in the image, only based on filter response. There is no reason why it should end up in certain segmentations.
+\\
+Clustering is done over all of the pixels over all of the images. Creating the local histogram is trial and error
+\section*{L8 notes}
+\subsection*{Some terms}
+SIFT - scaling iterative feature response\\
+Pixel wise difference (gradients) - more sensitive to relative location but sensitive to deformations
+\\
+Color histogram - 3d histogram \\
+What size of the cells do we want, fine grids, overlap etc
+Bin sizes - more finely tuned, a small shift will affect the histogram
+\\
+Compare histogram - chi square
+\\
+Orientation normalization\\
+\subsection*{Averaging}\\
+Bimodal distribution average end up with dominant orientation with no gradient\\\\
+MOPS or GIST is no longer used as a descriptor\\
+\\\\
+\subsection*{Mode - SIFT}\\
+SIFT - understand the implication of doing this\\
+Can be combined with other keypoint detector
+\\
+as the threshold is larger, it removes more keypoints, depends on illumination difference\\
+\\
+poorly localised if it sits on an edge and not a corner\\
+corners have high curvature, edges have low curvature\\
+\\
+needs to be clear where the keypoint is matched to when moving in a straight line\\
+\\
+ratio of eigenvalues to be below the edge thresh
+high threshold more tolerant of edges\\
+smaller bar to be corner, longer bar is edge\\
+white on black and black on white difference\\
+black bar cannot be keypoints as we also have the surrounding neighbors\\
+\\
+We don't assign gradients in original orientation - dominant orientation
+\\
+Taking the original histogram with some wrapping operation, form of normalisation wrt dominant orientation\\
+Normalize to unit length\\
+If it exceeds the threshold set the threshold value, rectify and assign it. Then renormalize.\\
+Clamping is to encourage invariance to small changes to illumination, over count in certain orientations.
+\\
+can use in the dense form where it can use in any rotation \\
+High robust
+\\
+\\
+\subsection*{Feature matching}
+\subsection*{Image transformation}
+Filtering\\
+Only changes on the actual image intensities\\
+G(x) = h \{ F(x)\ }
+Warping\\
+G(x) = F \{ h(x)\ }
+changes the location of the pixels
+\\\\
+\textbf{2d projective transformation}\\
+affine: parallel lines are still preserved
+projective: also known as a homography, try to solve for the parameters for  a projective transformation\\
+Not an arbitrary matrix with 9 degrees of freedom (3x3)\\
+Solve for H using direct linear transform
+\\
+\subsection*{SVD}
+$A = U \sum V^{T}$\\
+V is a singular matrix\\
+singular values found on diagonal values of sigma\\
+columns of V are single vectors
+\\
+N number of correspondenses
+\\ 
+Normalization such that the centroid is (0, 0) of the similarity transformation is a whitening step
+\\
+RANSAC deal with outliers, sample from the set of noisy observations
+\\
+Even though we can sample more, we usually s to be equal to the number of the outliers
+
 \end{document}

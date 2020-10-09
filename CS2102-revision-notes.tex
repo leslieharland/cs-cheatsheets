@@ -2,6 +2,11 @@
 
 \begin{document}
 \noindent
+ACID 
+Atomicity\\
+Consistency \implies parallel connections\\
+Isolation\\
+Durability\\
 $RW \rightarrow Model \rightarrow  Table$\\
 model needs to model realworld\\
 \\
@@ -13,6 +18,8 @@ ER diagram has entity sets, relation sets, aggregates etc.\\
 primary key is a combination so can have both\\
 can have more than one value from each entity\\
 zero participation
+\\
+Ternary {doctors, prescribes, drugs}
 \\
 \\\\\\
 |$>$ at most 1 key constraint \\(ENT1 INT PRIMARY KEY REFERENCES TABLE(ENT2))\\
@@ -110,6 +117,7 @@ SELECT SUM(y)  FROM (
 	 (SELECT MAX(x) + 0.0  - MIN(x) + 0.0 FROM vals))  
 	 AS y FROM vals GROUP BY x) AS z
 \end{verbatim}
+Closed form formula = $\frac{sum_{x}(x_{i}) + sum_{x} (-min(X))}{max(X) - min(X)}$
 \subsection*{Case analysis}
 SELECT * FROM players\\
 ORDER BY\\
@@ -213,15 +221,45 @@ WHERE num > (SELECT num FROM intermediate
             
 WITH X AS ... WHERE a > 20
 	 Y AS ... WHERE b < 10
-	 
-query
-\end{verbatim}
+	\end{verbatim} 
+\subsection*{Where instead of having}
+WITH CTE
+SELECT COUNT(*)
+
+SELECT FROM CTE
+WHERE
+
 \subsection*{Variables}
 capturing a computation process
-CTE: common table expression
+CTE: common table expression (temporary table unlike VIEW which is persistent)
+\\
+imperative, computes line by line, don't care how it is computed\\
+E.g. SELECT * FROM $\_\_$ WHERE x is parent and x is male \\
+\\
 \\
 Likes all pizza sold by a restaurant\\
 If restaurants has pizza A and B\\
 customers likes A, B, C\\
 this subset should be still be included
+\subsection*{Universal Quantification}
+\textbf{Intuition}
+\\
+$|P_{1}| \geq |P_{2}| for \{1, 2, 3\} \not\subset \{4, 5\}$
+$S1 \cup S = S1$ when S1 already contains S
+$S1 \cap S$ = S
+as they are incomparable
+\\\\
+\textbf{Double negation}
+There is no pizza sold by CC where not (P likes pizza) 
+\subsection*{Functional Dependencies}
+AB $\rightarrow$ A [reflexivity property]\\
+If FD is R(A, B, C, D)\\
+then total number of FDs is (2^4 - 1) $\times$  ($2^4$ - 1)\\
+excluding itself so -1\\
+\\
+A $\rightarrow$ BC is also A $\rightarrow$ B and A $\rightarrow $C
+\\\\
+FD redundancy - remove without changing its meaning\\
+A $\rightarrow$ B and B $\rightarrow$ C means A $\rightarrow$ C is redundant
+minimum cover is not unique
 \end{document}
