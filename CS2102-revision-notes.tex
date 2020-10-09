@@ -222,13 +222,33 @@ WHERE num > (SELECT num FROM intermediate
 WITH X AS ... WHERE a > 20
 	 Y AS ... WHERE b < 10
 	\end{verbatim} 
+E.g. a not present cte
+\begin{verbatim}
+WITH 
+not_present AS (
+SELECT sid, week
+FROM (SELECT sid FROM Students) AS tbl,
+(SELECT DISTINCT week FROM presenters) AS wk_tbl
+	
+\end{verbatim}
+\newpage
 \subsection*{Where instead of having}
+\begin{verbatim}
 WITH CTE
 SELECT COUNT(*)
 
 SELECT FROM CTE
 WHERE
+\end{verbatim}
 
+\subsection*{Consecutive values in a table}
+Suppose n=3\\
+q1 = not in table and max(n) > 3 \\
+q2 = 4th onwards \\
+q3 = max - n\\
+q4 = between n and n - 3 - 1 \\
+\\
+\includegraphics[height=7cm]{s.png}
 \subsection*{Variables}
 capturing a computation process
 CTE: common table expression (temporary table unlike VIEW which is persistent)
@@ -241,6 +261,11 @@ Likes all pizza sold by a restaurant\\
 If restaurants has pizza A and B\\
 customers likes A, B, C\\
 this subset should be still be included
+\subsection*{Coalesce}
+If there is no entry or is null, fill with 0\\
+\begin{verbatim}
+SELECT COALESCE(MIN(num), 0) FROM status;	
+\end{verbatim}
 \subsection*{Universal Quantification}
 \textbf{Intuition}
 \\
