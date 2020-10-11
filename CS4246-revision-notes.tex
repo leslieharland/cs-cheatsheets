@@ -6,6 +6,9 @@
 Model-free: not learning the transition and reward, only need to get observations from the real world or simulator\\
 Prediction to control - prediction into a control policy\\
 \\\\
+\subsection*{Monte Carlo}
+$\pi_{UCT}(n) = arg max_{a} \big(Q(n, A) + c \sqrt{\frac{log_2{(N(n))}}{N(n, a)}}})$\\
+V(A) = $\frac{\# A | A = 1}{\# A + \# B}$
 \subsection*{Generalized policy iteration}\\
 Take argmax get the policy\\
 Run the policy and estimate a new Q function\\
@@ -57,6 +60,18 @@ Model-free are easier to work with\\
 \\
 We usually mix MC with TD in practice, less estimate and not much variance\\
 \\
+\subsection*{TD}
+Assumption is it is always markovian in real RL tasks in the environment\\
+TD learning applies assumption to estimate\\
+Initializer can be 0\\
+A, 0, B, 0\\
+Markovian assumption, if it sees A and B then it gives the reward of 0.
+Does not give the right values of the states because it makes an assumption that is not true of the environment\\
+If it is true, then it will converge to  correct value functions\\
+Update equation\\
+ V^{\pi}(s) \leftarrow V^{\pi}(s) + \alpha(R(s) + \gamma\ V^{\pi}(s') - V^{\pi}(s))
+ \\
+ 1 - \alpha can be obtain by extracting - V^{\pi}(s) out and simplifying
 \subsection*{SARSA}
 TD control\\
 Uses GPI, on policy (improve the same policy)\\
@@ -135,6 +150,7 @@ Set a new target and change every c steps\\\\\\
 Extract with a linear function of features\\
 E.g. position of the ball
 \\
+Need two frames to determine the direction we are going\\
 provably good - how long would it take to go to epsilon
 %\subsection*{Policy search}
 %Mapping from state to action

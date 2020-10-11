@@ -1,5 +1,5 @@
 \documentclass[11pt]{article}
-
+\usepackage{graphicx}
 \begin{document}
 \noindent
 ACID 
@@ -116,6 +116,9 @@ SELECT SUM(y)  FROM (
  SELECT ((x - (SELECT MIN(x) + 0.0 FROM vals)) /
 	 (SELECT MAX(x) + 0.0  - MIN(x) + 0.0 FROM vals))  
 	 AS y FROM vals GROUP BY x) AS z
+	 
+is equivalent to 
+SELECT (SUM(x)-COUNT(x)*MIN(x))/(MAX(x)-MIN(x)+0.0)
 \end{verbatim}
 Closed form formula = $\frac{sum_{x}(x_{i}) + sum_{x} (-min(X))}{max(X) - min(X)}$
 \subsection*{Case analysis}
@@ -277,14 +280,46 @@ as they are incomparable
 \textbf{Double negation}
 There is no pizza sold by CC where not (P likes pizza) 
 \subsection*{Functional Dependencies}
-AB $\rightarrow$ A [reflexivity property]\\
+\textbf{Reflexivity}\\
+AB $\rightarrow$ A 
+\\\\
+\textbf{Composition}\\
+A $\rightarrow$ B \\
+C $\rightarrow$ D \\
+AC $\rightarrow$ BD \\
+\\
+\\
 If FD is R(A, B, C, D)\\
 then total number of FDs is (2^4 - 1) $\times$  ($2^4$ - 1)\\
 excluding itself so -1\\
 \\
 A $\rightarrow$ BC is also A $\rightarrow$ B and A $\rightarrow $C
 \\\\
+Attribute redundancy\\
+AB $\rightarrow$ C and B $\rightarrow$ A
+\\
+We can replace AB $\rightarrow$ C with A $\rightarrow$ C
+\\
+\\
 FD redundancy - remove without changing its meaning\\
 A $\rightarrow$ B and B $\rightarrow$ C means A $\rightarrow$ C is redundant
 minimum cover is not unique
+\\
+\\
+\textbf{How to get key}\\
+If there is no arrow pointing to them in the hyper-graph, we need to include it as part of the key\\
+\\
+\textbf{How to get attribute closure}\\
+For e.g. AD+ = ACDE\\\\
+
+\includegraphics[height=4cm]{s1}
+\\
+Using the hyper-graph connect the source to the nodes at the left side of the implication\\
+- Is there a path that can reach the nodes given at the right side of the implication
+\\\\
+\textbf{How to get minimal cover}\\
+Usually the implications that can't be decomposed\\\\
+\textbf{How to get key}\\
+\includegraphics[height=4cm]{s3.png}}
+\\
 \end{document}
