@@ -93,7 +93,9 @@ Given a set of news articles from many different news websites, find out what ar
 \\\\
 From the user usage patterns on a website, figure out what different groups of users exist.
 \subsection*{RL}\\
-Key usage: Planning problems\\
+Key usage: Planning problems, app placements product recommendations\\\\
+\textbf{Goal}\\
+Low risk when performing actions\\
 Goal of markov property: operate in ease\\
 choices that maximise the outcome\\
 \\
@@ -183,7 +185,47 @@ Discount factor$\gamma $
 Infinitely sample the cycle, a lot of uncertainties on the future
 \subsection{Bellman equation}
 Reward based on executing the state
+\subsection*{Value iteration}\\
+Idea of value iteration\\
+Instead of looking what policy to take, look back and determine what is the best action brought us to get the best value function \\\\
+Emits the observation and reward\\
+Recover information or t and r\\
+\\
+Value iteration is a simple form of policy iteration\\
+Use optimal V*  to create back the policy\\
+\subsection*{Q learning}
+Use q value to engineer the policy (monodically increasing)\\
+r(s, a) reward at comes at next state\\
+Higher value of q means we see it a lot of times, smooth it over time
 \newpage\noindent
+\subsection*{Neural Networks}
+\textbf{Motivation}\\
+In traditional ml, it is difficult to handcraft features, neural networks are good in feature learning\\\\
+NN generalise badly\\
+As the number of parameters (weights and layers) increase in a neural network, it can easily overfit the data.\\
+Backpropogation is a complicated and tedious process. Moreover, the surface plotted by the error of a neural network in non-convex and high-dimensional and can consist of many hills and valleys - making it hard to reach the optimal set of weights.\\
+\\
+Do all the neurons in a layer always share the same bias value?
+\\
+Yes, that is correct.  The bias value is the same value ($x_0=1$) for all units at all layers, because we are going to learn the particular weight for the bias for each individual unit, $\theta_{0}$, separately.  It's just pictorially cleaner to think that each layer has a separate bias unit, but it doesn't matter, because the value of the bias unit is always (by convention) set to unity, such that the individual weights $\theta_{0}$ (or in the NN matrix notation  $\theta^{(l)}_0$ are the controls for the biases. \\\\
+\\
+Random initialisation of weights for sign function\\
+the sign() function takes different constant values in different regions and therefore has gradient 0.\\
+the sign() function is discontinuous at x=0.\\
+\\
+Stack in together in a linear unit\\
+Generalise things that are out of sample\\
+\\
+Regularisation for NN\\
+Weight decay square of the weights are small so it is more toward linear regression \\
+\\
+\\
+\\
+Is the Soft Weight Elimination function a Cost Function?\\
+No, but it closely related.  It is a regulariser, a separate, artificial part of the augmented loss function, as what we learned in Week 05.  We denote regulariser functions as $\Omega(\theta)$.
+\\\\
+Would it have been a good idea to stop the first time the validation error goes up?\\
+The validation error might fluctuate and therefore stopping it the first time it goes up will not give the optimal result. One can consider using a moving average or some other metric.\\
 \subsection*{Find S}
 1.Initialise h to most specific h\\
 2. If the positive instance differs, then replace with ?
