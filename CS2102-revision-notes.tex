@@ -302,7 +302,9 @@ We can replace AB $\rightarrow$ C with A $\rightarrow$ C
 \\
 \\
 FD redundancy - remove without changing its meaning\\
-A $\rightarrow$ B and B $\rightarrow$ C means A $\rightarrow$ C is redundant
+A $\rightarrow$ B and B $\rightarrow$ C means A $\rightarrow$ C is redundant\\
+For each FD, check for every single node on the destination and if there is a path from source to destination
+\\
 minimum cover is not unique
 \\
 \\
@@ -319,7 +321,18 @@ Using the hyper-graph connect the source to the nodes at the left side of the im
 \\\\
 \textbf{How to get minimal cover}\\
 Usually the implications that can't be decomposed\\\\
+Cannot have redundant attributes\\
+AB $\rightarrow$ CDE\\
+B+ check if B can determine CDE\\
+which means A is redundant\\
+B $\rightarrow$ CDE
+\\\\
 \textbf{How to get key}\\
 \includegraphics[height=4cm]{s3.png}}
 \\
+Given a superkey
+CDG+\\
+Then try all combinations\\
+CD+ CG+ DG+\\
+Find attributes that is missing from the rhs
 \end{document}
