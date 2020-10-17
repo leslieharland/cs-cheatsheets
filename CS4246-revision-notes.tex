@@ -71,7 +71,7 @@ If it is true, then it will converge to  correct value functions\\
 Update equation\\
  V^{\pi}(s) \leftarrow V^{\pi}(s) + \alpha(R(s) + \gamma\ V^{\pi}(s') - V^{\pi}(s))
  \\
- 1 - \alpha can be obtain by extracting - V^{\pi}(s) out and simplifying
+ 1\ -\ $\alpha$ can be obtain by extracting - $V^{\pi}(s)$ out and simplifying
 \subsection*{SARSA}
 TD control\\
 Uses GPI, on policy (improve the same policy)\\
@@ -93,6 +93,8 @@ environment might change, world isn't quite a MDP, it can be robust, model may c
 Might still fall off the cliff
 \\
 Predictive problem learning (passive TD) has some restrictions 
+\\
+Update only at next state
 \subsection*{Q-learning}
 Only have the q function (acts as policy on its own)\\
 Not in SARSA: $\gamma$  max a \\
@@ -109,12 +111,23 @@ Let's go to part of the space that is exploit less\\
 Issues when state space is large\\
 \\
 Update policy then take argmax - given the current policy from the Q function, estimate a new Q function and construct a new policy by taking argmax of Q function\\\\
-Q learning can learn off policy (uses different policy)\\
+Q learning can learn off policy (doesn't follow the policy given, uses different policy)\\
+Take the max over the next state\\
+Minimizing the difference between the target and the current estimate\\
 If the count is small give bonus, if we try many times reduce bonus\\
 \\
+Why don't u update all the Q at each state?\\
+Update is only done for all the state-action\\
+Not the final Q-table, it will interact with the environment and update the table
+\\
+What if the transitions are non-deterministic?\\
+probability to move to a state\\
+Even it is probability, it will move to that state, no longer a probability so take Q value of that state, expected Q learning
 \subsection*{Function approximation}
-Estimating the Q\\
-Figure out what are the important features and extract out\\
+Number of states are huge, huge state space\\
+Approximate (estimate) Q value with function approximator\\
+\\
+Figure out what are the important features and extract out to define each state
 E.g. for a chess, queen is worth 5 points, pawn worth, knight worth\\
 RL will learn the parameter vector $\Theta$
 \\

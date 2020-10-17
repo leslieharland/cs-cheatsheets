@@ -289,6 +289,9 @@ C $\rightarrow$ D \\
 AC $\rightarrow$ BD \\
 \\
 \\
+\textbf{Logical implication}\\
+Does it hold for all instances in the table
+\\\\
 If FD is R(A, B, C, D)\\
 then total number of FDs is (2^4 - 1) $\times$  ($2^4$ - 1)\\
 excluding itself so -1\\
@@ -302,7 +305,9 @@ We can replace AB $\rightarrow$ C with A $\rightarrow$ C
 \\
 \\
 FD redundancy - remove without changing its meaning\\
-A $\rightarrow$ B and B $\rightarrow$ C means A $\rightarrow$ C is redundant
+A $\rightarrow$ B and B $\rightarrow$ C means A $\rightarrow$ C is redundant\\
+For each FD, check for every single node on the destination and if there is a path from source to destination
+\\
 minimum cover is not unique
 \\
 \\
@@ -319,7 +324,35 @@ Using the hyper-graph connect the source to the nodes at the left side of the im
 \\\\
 \textbf{How to get minimal cover}\\
 Usually the implications that can't be decomposed\\\\
+Cannot have redundant attributes\\
+AB $\rightarrow$ CDE\\
+B+ check if B can determine CDE\\
+which means A is redundant\\
+B $\rightarrow$ CDE
+\\\\
 \textbf{How to get key}\\
 \includegraphics[height=4cm]{s3.png}}
 \\
+Given a superkey
+CDG+\\
+Then try all combinations\\
+CD+ CG+ DG+\\
+Find attributes that is missing from the rhs
+\subsection*{Decomposition}
+Intuition is like splitting the relation into two or more\\\\
+\textbf{Lossless join}\\\\
+If the relation only contain attributes on RHS most likely it is not lossless
+\\
+$F \models (R1 \cap R2)$ satisfy a FD\\
+1. Combine two relations into one\\
+2. Each R can only be used one in the tree\\\\
+\includegraphics[height=4cm]{images/s1.png}
+\\\\
+\textbf{Dependency preserving}\\
+Cannot include anything that is trivial\\\\
+As long it satisfy one of the attribute on LHS, then the FD is satisfied. Can use the output to another FD.\\\\
+\includegraphics[height=5cm]{images/s2.png}
+\\\\\\
+Does R1 contain the attributes that is described by any FD?\\
+\includegraphics[height=5cm]{images/s3.png}
 \end{document}

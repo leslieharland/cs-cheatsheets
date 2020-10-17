@@ -146,7 +146,7 @@ Depending on the agent, we can end up in a different state\\
 E.g. if we want to turn the rotor around the corner, it may turn out not to behave that way
 \\
 Recurrent neural networks\\
-Using ReLu to construct each state in deep learning
+Using ReLu to construct each state in deep learning, easy to compute as no exponential operations
 \subsubsection*{Policy}
 Look through the mapping function\\
 Deterministic $s_{1}$ to $a_{1}$ \\
@@ -217,7 +217,7 @@ Stack in together in a linear unit\\
 Generalise things that are out of sample\\
 \\
 Regularisation for NN\\
-Weight decay square of the weights are small so it is more toward linear regression \\
+Weight decay square of the weights are small so it is more toward linear regression (L2 regularisation) \\
 \\
 \\
 \\
@@ -226,6 +226,89 @@ No, but it closely related.  It is a regulariser, a separate, artificial part o
 \\\\
 Would it have been a good idea to stop the first time the validation error goes up?\\
 The validation error might fluctuate and therefore stopping it the first time it goes up will not give the optimal result. One can consider using a moving average or some other metric.\\
+\subsection*{Deep Learning}
+Capability to take in multiple input and give multiple outputs\\\\
+Dropout - Generalise well rather than approximate well and overfit
+ReLU - Vanishing gradients
+\\
+Bias- Variance tradeoff - Not generalizing due to too many parameters, model representation fit the particularities. Not fitting the additional noise.
+\\
+GAN create adversary to help u train better\\
+E.g. mock test paper to do better in exam
+\\
+RNN time series inputs are correlated to each other\\
+E.g. determiner followed by noun
+\\
+Weights of output from one node to another model layer of another time step is the same \\
+\\
+Model constraint input uses the same weights so that we can fewer parameters than 2
+\\
+\\
+1 to Many: Image captioning\\
+Many to 1: Sentiment Classification\\
+Many to Many: NMachine translation
+Many to Many (time sensitive): Stock market prediction\\
+\\
+\subsection*{RNN}
+Tries to get the softmax chance higher
+\textbf{Truncated backprop}\\
+Instead of going to the start, backprop only to the start of the partition block
+\subsection*{CNN}
+Finding context where locality is important or somehow related to the things nearby\\
+Key idea: Make it invariant to position\\
+E.g. Non-linear transformation to find a horizontal lines\\
+AND and OR gate to form a high level representation\\
+\\
+Image that maximises the strength of the corresponding units activation\\
+\\
+Tied samples over all the subsamples of the image\\
+Sliding windows to build new feature maps\\
+Sub-sampling (Pooling layers)\\
+Stride - ignore intermediate squares
+Max pooling gives the maximum of the units based on the filter size\\
+\\
+Layers at the beginning of the network has smaller activations as it is the problem of vanishing gradients (gradient is very small at end layers) stacking all of the layers together, when run on training (after pre-training)
+\\
+Layers get more positive or negative further down the network as compounding signals get more extreme, causing vanishing problem, doesn't give the same magnitude of gradient at different parts of the network
+\\
+- Learning rate has to compensate
+- Weight decay regularisation 
+\\ 
+Or when values are close to 1, then we have issues with learning
+\\
+ReLu loses representation \\
+\\
+softmax cannot be used in nlp to predict next word as it can be computationally expensive
+\\
+hierarchical softmax can be computed in parallel
+For unsupervised pre-training, weights by supervised learning and fine tuning it
+\\
+Final softmax layer needs supervision so we can only pre-train the middle layers
+\\
+GPU allows operation to happen simultaneously\\
+each part of the GPU computing one feature map
+\\
+\\
+performance will only get better for resnet with more layers as the residual will be learned by the next layer only if in the previous layer the residual is not captured.
+\subsection*{Sparse Autoencoders}
+Have to learn a smaller set of weights like a lossy compression algorithm \\
+L1 to encourage sparsity
+\subsection*{Dropout}
+Idea: Random forest feature projection\\
+Keep input fixed and only the output at other layers change\\
+Rotate over multiple batches\\
+Only certain neuron get the weight which can help in regularisation
+\subsection*{Transfer learning}
+Unsupervised feature extraction layers, or bottom and middle layers to use for new tasks\\
+Hyperparameter to decide where to cut off softmax, FC, pooling
+\\
+Not useful for\\
+VGG net has learned color or natural images that are not part of the domain
+\subsection*{Representation Learning}
+Uses embedding in the compressed layers
+\subsection*{SVM}
+Another linear unit
+\newpage\noindent
 \subsection*{Find S}
 1.Initialise h to most specific h\\
 2. If the positive instance differs, then replace with ?
