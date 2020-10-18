@@ -37,10 +37,12 @@ A: spatial quantization basically happens because we cant represent continuous x
 Q: It seems that you always regard intensity as integers, is it a routine for this course?\\
 A: Yes and no\\
 \\
-Q: does adjusting abstract and brightness simply refer to the linear mapping or also include the non-linear gamma mapping\\ A: Non-linear mapping also just the contrast\\
+Q: does adjusting abstract and brightness simply refer to the linear mapping or also include the non-linear gamma mapping\\
+A: Non-linear mapping also just the contrast\\
 Photography operation we don’t use stretching ( we use images that stretch over the entire range)
 \\\\
-Q: In practice, is convolution used more than correlation?\\ A: Convolution\\
+Q: In practice, is convolution used more than correlation?\\
+A: Convolution\\
 \\
 Q: Is reconstructing the original image using laplacian pyramid 100\% lossless?\\
 A: Up to the difference of quantisation
@@ -51,7 +53,8 @@ A: Yes, finding the kernel is always hard
 Q: Is convolution invertible? In a sense that let's say we have a “convolved” image, is there always a filter such that we can recover the original image using convolution? e,g, undoing blur convolution using a specific sharpening convolution\\
 A: If we throw away half of the pixels
 \\\\
-Q: Does laplacian pyramids take 2* space than gaussian pyramids simply because laplacian pyramids have 2 sets of the pyramids (gaussian + residual)?\\ A: Same amount of space
+Q: Does laplacian pyramids take 2* space than gaussian pyramids simply because laplacian pyramids have 2 sets of the pyramids (gaussian + residual)?\\
+A: Same amount of space
 \\\\
 %Low pass filtering signal into low domain frequency
 %High frequency represent sharp edges
@@ -61,7 +64,8 @@ Q: Does laplacian pyramids take 2* space than gaussian pyramids simply because l
 
 
 
-%2k + 1 is the size of the kernel 
+%2k + 1 is the size of the kernel
+
 \section*{L4 notes}
 \subsection*{Some terms}
 mean filter does not remove all noise and blurs the image
@@ -196,7 +200,8 @@ Q: Could you explain the intuition behind why cross correlation isn't commutativ
 A: [1, 2, 3] cross correlation [3, 2, 1] is not the same as [3, 2, 1] cross correlation [1, 2, 3]
 \\\\
 $[1, 2, 3]$ cross convolution [0, 1, 0] is [3, 2, 1] so it is not identity
-\\ \\\\\\
+\\
+\\\\\\
 Q: From slide 9, how is the 1D derivative filter constructed from the finite differences discrete version equation with h = 2?\\
 A: 2 elements we are using 
 \\\\
@@ -204,7 +209,8 @@ Q: When convolution/cross-correlation is mentioned, is full padding assumed by d
 A: is not full padding, lecture examples are only full padding
 \\\\
 \noindent
-Q: is padding to just inserting zero rows and zero columns or that plus blurring/interpolation? It seems to have been used both ways having to do nn interpolation (bilinear, linearly solve between 2 neighbours)0 interspersed in rows and columns
+Q: is padding to just inserting zero rows and zero columns or that plus blurring/interpolation? It seems to have been used both ways
+having to do nn interpolation (bilinear, linearly solve between 2 neighbours)0 interspersed in rows and columns
 \\
 %blue line falls can estimate what the ratio is then multiply by pi
 blurring to reduce noise (to avoid enhancing the noise)
@@ -437,6 +443,7 @@ projective: also known as a homography, try to solve for the parameters for  a p
 Not an arbitrary matrix with 9 degrees of freedom (3x3)\\
 Solve for H using direct linear transform
 \\
+Apply homography to align two images together
 \subsection*{SVD}
 $A = U \sum V^{T}$\\
 V is a singular matrix\\
@@ -450,5 +457,52 @@ Normalization such that the centroid is (0, 0) of the similarity transformation 
 RANSAC deal with outliers, sample from the set of noisy observations
 \\
 Even though we can sample more, we usually s to be equal to the number of the outliers
+\subsection*{Optical flow}
+The bigger the arrow, the stronger the flow
+\\
+Small motion assumption - Linear wrt to the location
+\\\\
+Constant flow\\
+All flow in the same region will have a flow
+\\
+Ax = b A is not a square matrix
+\\\\
+Have different motions to avoid aperture problem\\
+motion is not small, we end up with wrong matches and estimate shift are actually not smaller than the actuals shift
+\\
+$\rightarrow$ reduce the resolution
+\\
+\\
+smoothing the flow vectors are 
+\\
+warp and upsample,
+compute the flow until we reach the highest resolution
+\\
+Line and smooth location, we cannot take the inverse, can only get sparse motion flow with Lucas kanade
+\\Suitable for large images
+\\\\
+Horn Schunck\\
+Assumption: smooth flow field\\
+As a min problem, u and v to be small \\
+\\
+Each pixel flow can be different
+\\
+Difference in flow between adjacent pixels are small
+\\
+uniformly flow field will have the lowest flow field compared to the random flow field
+\\
+We also consider the right and top neighbour so we won't have to double count everything
+\\
+$u_{i, j}$ appears 4 times as it is being referenced by the neighbours
+\\
+Only suitable when in the video frames movements are small
+\\
+Does not mean that there is motion in the underlying object\\
+For every model, go back and question our assumptions\\
+\\\\
+Motions are large how to solve this?\\
+Coarse to fine estimation using LK
+\\
+Or non linear assumptions like Horn Schuncks
 
 \end{document}
