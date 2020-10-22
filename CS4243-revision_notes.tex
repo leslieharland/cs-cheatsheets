@@ -432,11 +432,12 @@ High robust
 \subsection*{Image transformation}
 Filtering\\
 Only changes on the actual image intensities\\
-G(x) = h \{ F(x)\ }
+G(x) = h \{ F(x)\ \}
 Warping\\
-G(x) = F \{ h(x)\ }
+G(x) = F \{ h(x)\ \}
 changes the location of the pixels
 \\\\
+\section*{L9 notes}
 \textbf{2d projective transformation}\\
 affine: parallel lines are still preserved
 projective: also known as a homography, try to solve for the parameters for  a projective transformation\\
@@ -446,17 +447,23 @@ Solve for H using direct linear transform
 Apply homography to align two images together
 \subsection*{SVD}
 $A = U \sum V^{T}$\\
-V is a singular matrix\\
+A - 8 $\times$ 9\\
+U - 8 $\times$ 9\\
+$\sigma$ - 9 $\times$ 9\\
+V - 9 $\times$ 9\\
+\\
+V is a singular matrix\\\\
 singular values found on diagonal values of sigma\\
 columns of V are single vectors
 \\
-N number of correspondenses
+N number of correspondences
 \\ 
 Normalization such that the centroid is (0, 0) of the similarity transformation is a whitening step
 \\
 RANSAC deal with outliers, sample from the set of noisy observations
 \\
 Even though we can sample more, we usually s to be equal to the number of the outliers
+\section*{L10 notes}
 \subsection*{Optical flow}
 The bigger the arrow, the stronger the flow
 \\
@@ -504,5 +511,140 @@ Motions are large how to solve this?\\
 Coarse to fine estimation using LK
 \\
 Or non linear assumptions like Horn Schuncks
-
+\\
+\section*{L11 notes}
+\subsection*{Tracking}
+Tracking the speed of the action\\
+Estimate volume of heart chamber\\
+We can't rely only on optimal flow for tracking\\
+\\
+First search at coarser scale\\
+Only need to search on local region based on previous state
+\\
+Based on initial location so it has to be good
+\\
+Can have other types of transformation, rather than just homography (projective transform)
+\\
+no closed form to express I as it has no parameters for p	\\
+Can only compare as much pixels as in the template
+\\
+Do in a matrix instead of a loop form, each element is independent so we can parallelise
+\\\\
+\textbf{KLT algorithm}\\
+Refresh population of possible corners as features of tracking\\\\
+\textbf{Duality of feature tracking vs Optimal flow}\\
+Feature tracking\\
+Follow specific pixels
+As we solve optical flow problem then we can track features, vice versa\\
+\subsection*{Mean shift}
+Initialize for a specific data point and apply to every point\\
+Every point that end up at the same attraction basin belongs to same centroid\\
+Move the points to the centroid to calculate the mean shift vector for every single point\\
+Location that we end up at are the local maxima called attraction basin\\\\
+The reason we do for every single point for segmentation is we want to identify the membership for each mode
+\\
+\\
+b is the binning function\\
+Look at m which bin does it go into, if it go to mf bin, then $b(x_{n} - m) $= 0 and delta function goes to 1\\
+Contribution to q is 0, does not contribute to descriptor value\\
+We are trying to pick out the points that have the colors\\
+Normalizing with the size of the target\\
+\\
+Bhattacharyya co-efficient, L2 is not very ideal for mean-shift\\
+Find the peak of mode
+or maximizing over all the possible locations y
+\\
+Assign to new target and calculate the candidate again\\\\
+\textbf{Challenges of mean shift}\\
+We assume the bounding box is going to move the same but if the person is moving the hand further from the camera, so it is not a good assumption
+\\\\
+Repeating the procedure from frame to frame, we may suffer issue from drift (cannot count each color pixel equally), might need to reinitialise at some point\\\\
+\\
+Target may leave out of the frame, there are a lot of objects in the scene\\
+Stationary vs moving cameras\\
+ID shift, move to another object\\
+Moving background foreground and background are changing 
+\\
+\section*{L12 notes}
+\subsection*{Data driven image classification}
+Learning classifiers based on data\\
+Train classifiers using KNN or DNN\\\\
+\textbf{Challenges in CV}\\
+Invariance and generalization
+\\\\
+\textbf{Where deep learning comes in}\\
+Every single image in orientation and shape\\
+Extrapolate some form of semantics\\
+\\
+\textbf{AI}\\
+Rule based system that uses expert indulge human intelligence
+\\
+Narrow AI only do a dedicated task\\
+Small sliver of human intelligence
+\\
+Neurons are non linear processing unit
+\\
+NN is not close to how the brain even works
+\\
+Mainly done for statistical pattern recognition
+\\\\
+Non linearity (Perceptron) are building blocks, weighting the sum which passes through a non-linear activation function
+\\
+Features are formed with cascade of functions that transform features
+\\\\
+\textbf{Perceptron Mark I}\\
+Original perceptron was created to do image processing\\
+Each photocell is sensitive to light\\
+Wires are creating different combinations of inputs\\\\
+Fully connected - Every single neuron has a connection to the output layer, weighted summation of every single pixel, each representing a probability of the class\\
+\\
+Locally connected instead of fully connected
+\\
+Flatten the matrix into a vector, each pixel is 1 element in the vector which correspond to the input	
+\\
+Hidden units = input\_width $\times$ input\_height
+\\
+Parameters for 1 hidden unit = Hidden unit ^2\) (+1 is negligible)
+\\\)\\
+\textbf{Stationarity}\\
+Definition of corners does not change\\
+Relative comparison to the local neighbour hood upper left and bottom right\\
+Apply same weights to to all neurons colored different
+\\
+Otherwise we would need different weights\\
+Every neuron is centered at every pixel\\
+Square area is called the receptive field of the perceptron\\
+If it has a reduction in half the dimension, receptive field at 3 $\times$ 3 will correspond to 6 $\times$ 6 in the original image\\
+Will progressively increase even if kernel stay in same size due to reduce resolution
+\\\\
+Perceptrons are using convolution operation - sweep the kernel over image 
+\\
+\\
+Kernels whose weights are learned\\
+Filtering extract edges, orientations of edges
+\\
+E.g. Gabor, Sobel filter
+\\
+Instead learn weights for the filters
+\\\\
+\textbf{Feature maps}\\
+Also called a channel\\
+\\
+NN also uses pooling rather than simply convolution
+\\
+After pooling the resolution would be very coarse\\
+Aggregate response into a simple value like downsampling
+\\
+ReLu rectified to 0
+\\
+Convolution is done by many kernels rather than just 1, using parameter sharing
+\\
+\\
+ImageNet is 3 orders of magnitude larger than previous Nets
+\\
+Top 1 = 100 - 1\\
+Top 5 = As long as u have 5 of the classes in the top of the probabilities, it is also considered correct, top 5 most confident correspond to ground truth
+\\
+\subsection*{Extended Image classification}
+Not only find out what it is, also where it is
 \end{document}
