@@ -190,7 +190,7 @@ if yes keep it as part of the edge else discard it
 \
 \\\\
 Q: would there be multiple local maxes after performing the non-maximum suppression?\\
-A: no multiple local maxes
+A: no multiple local maxes, strong response right next to each other
 \\\\
 Q: is horizontal gradient detection always from left to right? similar for vertical case.\\
 A: left to right\\
@@ -386,6 +386,7 @@ A: Texture of the background is very large, approximate scale of the marble is o
 Clustering is done over all of the pixels over all of the images. Creating the local histogram is trial and error
 \section*{L8 notes}
 \subsection*{Some terms}
+Descriptors are parameter independent\\
 SIFT - scaling iterative feature response\\
 Pixel wise difference (gradients) - more sensitive to relative location but sensitive to deformations
 \\
