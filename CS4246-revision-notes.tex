@@ -29,7 +29,10 @@ U is the estimate
 Monte Carlo error: considers all the previous steps
 \\
 vs.\\
-TD error: how difference are my difference at this time step
+TD error: how difference are my difference at this time step\\
+Do gradient descent and minimize squared loss\\
+Gradient is the direction of maximum increase\\
+So we need to find the opposite to find the min which is why it is called gradient descent
 \\
 \subsection*{n step TD}
 better tradeoff between bias and variance
@@ -71,7 +74,7 @@ If it is true, then it will converge to  correct value functions\\
 Update equation\\
  V^{\pi}(s) \leftarrow V^{\pi}(s) + \alpha(R(s) + \gamma\ V^{\pi}(s') - V^{\pi}(s))
  \\
- 1 - \alpha can be obtain by extracting - V^{\pi}(s) out and simplifying
+ 1 - $\alpha$ can be obtain by extracting - $V^{\pi}(s)$ out and simplifying
  1\ -\ $\alpha$ can be obtain by extracting - $V^{\pi}(s)$ out and simplifying
 \subsection*{SARSA}
 TD control\\
@@ -176,4 +179,82 @@ Gradient descent can differentiate that
 \\
 Actions are discrete can't find gradient wrt a
 \\
+\subsection*{POMDP}
+Approximate sometimes doesn't work but usually work well\\
+P space hard (as hard as any problem that can be solved with polynomial space, consist of NP)\\
+If there is P(\(b^{\prime}\) , a) and P(b) , we have a MDP\\
+Function from belief to action through an observation b $-$ o $-$ a
+\\
+b input vector [b(1), b(2), b(3)], $\alpha$ is the weights or coefficient of the linear function (alpha vectors) then it becomes a linear function b(1)$\alpha$ (1) + ... b(n)$\alpha$ (n) \\
+$\alpha$ (1) is the expected return at the state\\
+\\
+Optimal policy to choose conditional plan\\
+$U(b) = max\limits_{p}\ b \cdot \alpha_{p}$\\
+\\
+Do induction on the depth of the tree\\
+\\
+wrt to state action, then if u take an action then u go to a state\\
+Zero step plan only take into regard the state, so are initialised with rewards at the state\\
+Each 2-step plan can draw a straight line\\
+Each region has a corresponding value function\\
+\\
+Converge into a convex function\\
+\\
+Construct a depth d plan\\
+Transition = $\sum\limits_{s^{\prime} P(s^{\prime} | s, a)$\\
+Average over observations (with probability of receiving o) = $\sum\limits_{e}P(e | s^{\prime})$\\
+Probability to use alpha vector at $s^{\prime}$ = $\alpha\limits_{p, e} (s^{\prime})$\\
+$\alpha_p(s) = R(s) + \gamma \big( \sum\limits_s^{\prime} P(s^{\prime} | s, a) $
+\\
+Possible subtrees that can put in position d - 1 action
+\\
+1. Use initialised values to compute alpha vectors\\
+2. Remove dominated vectors for depth 1 (Largest difference between belief to small enough)\\
+3. Use existing alpha vectors to compute alpha vectors at depth 2 and so on\\
+\\
+Know the belief instead of being perfect of knowing the state
+\\
+Be clever on which subset to pick
+\\
+Intractable - no of state variables grow
+Also never reach same belief twice, have to enumerate through all the states, a lot of multiplications and integrations\\
+Belief tracking is expensive, generating beliefs is continuous\\\\
+Instead use history, sample some states for approximating beliefs\\
+Tree search until a certain depth, build the tree from simulation\\
+Particle filtering\\
+Have a simulator, so represent a set of states
+\\
+\\
+If initial belief is bad, then it might affect the approximation\\
+Deterministic will take longer time to compute\\
+\\
+\\
+\subsection*{Partial Observability}
+Fog of war in DoTa\\
+single network that controls all 5 players\\
+each agent runs independently
+\\
+Break into hierarchical operation\\
+RNN to learn what is good to remember and propagate (hidden unit) to memory\\
+\\
+Each player has own policy (POMDP)
+\\
+For model based how is it well defined?\\
+Model of the opponent becomes an environment\\
+For a 2 player, will converge to an optimal structure\\
+Value iteration for MDP, what u observe is different from what the enemy observe\\
+\\
+Does not work with multi-agent, belief is no longer meaningful but policy still holds\\
+Optimal collection of trees(policies), each agent to have a tree\\
+Each agent to not do its own observation\\
+\\\\
+Reward shaping might give incorrect reward, go around collecting rewards instead of what u want
+\\
+ It helps bring consequences that are in the distant future closer to the present, so it's easier for an agent to learn.
+ \\
+Where win and loss are very far\\
+Not so much for chess, pawn and queen worth is defined using function approximator\\
+Adding a constant does not change the optimal policy\\
+\\
+
 \end{document}
