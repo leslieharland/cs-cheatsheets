@@ -465,6 +465,7 @@ RANSAC deal with outliers, sample from the set of noisy observations
 \\
 Even though we can sample more, we usually s to be equal to the number of the outliers
 \section*{L10 notes}
+Hessian is the 2nd order derivative\\
 \subsection*{Optical flow}
 The bigger the arrow, the stronger the flow
 \\
@@ -487,6 +488,26 @@ warp and upsample,
 compute the flow until we reach the highest resolution
 \\
 Line and smooth location, we cannot take the inverse, can only get sparse motion flow with Lucas kanade
+\\
+Until we get the closest match\\
+Mode represent location in the image space, feature representation most closest to the template\\\\
+Issues with computing flows at object edges\\
+\\
+How to associate from 1 frame to another frame\\\\
+With optimal flow, we can see if people are moving in or out
+\\
+sum of x is the projective range of the template, only for the template not warping the whole image to find the template\\
+\\
+When p = 0, there is no translation, so there is only the change of intensity over time\\\\
+Do warp on observation, make the comparison between the warped observation and increment on top of it
+\\
+Template should stay the same from start to finish, depending on the direction of the warp\\\\
+$I_{t}$ if p = 0 as we are updating the whole image after every step, warp image on template\\\\
+$T(x) - I(W(x;p))$ 
+\\Warping from template to observation image or vice versa
+\\
+Number of pixels in the blob would give an indication of how many people are together
+\\\\
 \\Suitable for large images
 \\\\
 Horn Schunck\\
@@ -538,6 +559,15 @@ Feature tracking\\
 Follow specific pixels
 As we solve optical flow problem then we can track features, vice versa\\
 \subsection*{Mean shift}
+Depends on the background\\
+Spatial layout - what is in the template layout\\
+Not allowing the template to change in size then it will change the distribution of the color histogram, much less than in original template, has issues with scaling (additional dimension in scale)
+\\
+How do we bin the colors?\\
+10 bins per color channel, then we have 30, 3d histogram that is compounded for every channel.
+\\
+10 bins may not be discriminative enough to distinguish two shades of color\\
+\\
 Initialize for a specific data point and apply to every point\\
 Every point that end up at the same attraction basin belongs to same centroid\\
 Move the points to the centroid to calculate the mean shift vector for every single point\\
