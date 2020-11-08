@@ -256,5 +256,104 @@ Where win and loss are very far\\
 Not so much for chess, pawn and queen worth is defined using function approximator\\
 Adding a constant does not change the optimal policy\\
 \\
-
+\subsection*{Game theory}
+Are they solutions (strategy profile where all players are maximizing expected utility?
+\\
+equilibrium - no one wants to change their utility\\
+No one can benefit from switching\\\\
+Result in local optimum
+\\
+q is the minimizer, E is the maximiser\\
+minimax theorem - doesn't matter who goes first
+\\ 
+Can be formulated to a linear problem\\
+p - probability vector\\
+q - single vector\\
+\\
+don't see the exact action that the player is going to take, only sees the strategy
+\\
+What are everyone's strategy when it is stable?
+mixed strategy - doesn't matter who goes first, would end up with same expected value\\
+\subsection*{Game theory}
+Equilibrium no agent can improve themselves by changing their strategy
+\\
+Pure strategy every agent plays an action
+\\
+Pareto optimal - What is good for me may not be good for another agent, solutions that are not dominated\\
+\\
+Dominated if the policy can be improved without making it worse for somebody else
+\\
+If there is multiple equilibrium, can be selected that is good for everybody\\
+\\
+Mixed strategy\\
+What is good for one is bad for another\\
+Symmetric, good for player A and bad for player B
+or bad for player A and good for player B \\
+\\
+Is computationally difficult
+\\\\
+Zero-sum game can computationally efficient
+\\
+Minimax theorem\\
+If row player picks mixed strategy x, and column players plays after knowing the strategy is the same as letting the column player go first, second player can play a pure strategy\\
+$\rightarrow$ does not matter who picks the strategy first\\
+\\
+x and y depends on the game matrix
+\\\\
+can be solved with linear program (polynomial time algorithms)
+\\
+Minimize/ maximize subjected to linear constraints using interior points methods
+\\
+If we know everybody was rational, the possible outcomes are only when everyone is at equilibrium
+\\
+Lacking the compute power to be rational
+\\
+A lot of modelling issues if someone is not rational
+\\
+Once the row player have decided a probability vector, the second player can play a mixed strategy, the min is only with one of the pure strategy (min of one of the two endpoints of the linear, convex function)
+\\
+\subsection*{Sequential game}
+Sequence of turns 
+\\
+Normal form: 1 move using matrix or table\\\\
+Extensive form: Multi dimension table, trees\\
+\\
+Belief does not make sense if the agents are optimising their strategy 
+\\
+Observation history: what are the observation that the player has seen
+\\
+Nodes with same observation history are placed into an information set
+\\
+Perfect information- No ambiguity on which part of the tree that the node is on
+\\
+Policy - Function of history\\
+The player plays this strategy based on the history or distribution
+\\
+Chance player expands all non-zero possibilities, order of the observation matters 
+\\
+Subgame - requires that player 2 sees player 1 moves (information set including all nodes descended from it)\\
+\\
+Cannot improve by changing strategy\\
+\\
+\subsection*{Prisoner's dilemna}
+Better off if two players cooperated
+\\
+testify no matter what they play in the history, 
+for a fixed number of rounds, both players will testify
+\\
+In each round 1\% chance they will never play again
+\\
+If any player betrays, they will get punished forever (don't cooperate forever)
+\\
+\subsection*{Perpetual punishment}
+Geometric series -1 / 1 - 0.99
+\\
+If finite then will not cooperate, then we can reason from the last game and reason backwards, would always betray and not change the strategy
+\\
+If gamma is 0, then we have 1 game, then there would be no continuity. It should be a range of gammas, for some gammas it would be close to 0
+\\
+reward $>$ punishment * 1/(1-r)
+\\
+which equilibrium that u end up in is unclear, if u don't play equilibrium u can improve
+$\rightarrow$ would play some equilibrium because u would improve by changing the strategy
 \end{document}

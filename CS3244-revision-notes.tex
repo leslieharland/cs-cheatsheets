@@ -1,8 +1,16 @@
 \documentclass[11pt]{article}
 \usepackage{amsmath}
+\usepackage{graphicx}
 \begin{document}
 \noindent
 \subsection*{Some terms}
+Square of L2 $||\theta ||^{2}_{2}$\\
+Sum of all squares
+\\\\
+L2 norm $||\theta ||_{2}$\\
+Square root of sum of all squares
+\\
+\\
 Collaborative filtering - collaborative filtering is a method of making automatic predictions (filtering) about the interests of a user by collecting preferences or taste information from many users\\
 Assumes that one person has same opinion as the other person
 \\\\
@@ -15,7 +23,7 @@ $H_{2} \subset H_{10}$\\
 Target function y = f(x)\\
 Unbiased learner cannot generalise \rightarrow\) inductive bias
 \\\\
-h is +ve when h(x) = 1
+h is +ve when h(x) = 1\\
 $\geq_{g}$ more general than	 or equal to\\
 h_{j} $\geq_{g}$ h_{k} \equiv \forall x \in X (h_{k}(x) = 1) \rightarrow (h_{j}(x) = 1)\)
 \\
@@ -37,6 +45,7 @@ prior odds / likelihood = posterior odds\\
 Bayesian thinking\\
 How likely is something not going to work?
 \\
+\includegraphics[height=2cm]{images/s4.png}\\
 Hold your beliefs, shift your beliefs as u encounter with the world\\
 $P(y | x) = \frac{P(x | y) \times P(y)}{P(x)}$
 \\
@@ -240,11 +249,17 @@ For the hard threshold, when it is close to 0 it becomes a linear line\\
 a = g(s) = $g\big(\sum\limits_{j=0}^{d[l-1]} \Theta_{i,j}^{[l]}\ x_{j}^{[l-1]}\big)$
 \\
 1 represent correct classification
+\\
+-1 to 1 step function \\ 
+Going from -1 to 1
 h = \begin{matrix}
 [1;-1;-1]
 \end{matrix}
 where 1 represents the output unit to be positive (for eg first from the top $a_{1}^{[l]}$)
 \\\\
+Number of kernels N = 2 for gray, 6 for RGB\\
+\includegraphics[height=4cm]{images/s6}
+\\
 \textbf{Motivation}\\
 In traditional ml, it is difficult to handcraft features, neural networks are good in feature learning\\\\
 NN generalise badly\\
@@ -279,6 +294,11 @@ ReLU - Vanishing gradients
 \\
 Bias- Variance tradeoff - Not generalizing due to too many parameters, model representation fit the particularities. Not fitting the additional noise.
 \\
+\\
+Higher budget will have a wide set of solution and encompasses $\theta_{lin}$ (the ideal solution) such that no regularisation is used
+\\
+$\theta_{reg}$ is proportional to the size of the circle, larger C causes smaller regularisation, smaller circle leads to larger gradient
+\\\\
 GAN create adversary to help u train better\\
 E.g. mock test paper to do better in exam
 \\
@@ -359,7 +379,7 @@ Another linear unit
 1.Initialise h to most specific h\\
 2. If the positive instance differs, then replace with ?
 \subsection*{Version space}
-List all hypothesis, remove any hypothesis that is inconsistent with any training example
+List all hypothesis, remove any hypothesis that is inconsistent with any training example h(x) $\neq$ f(x)
 \subsection*{Candidate Elimination}
 prefers positive examples over negatives as there can only be one maximally specific hypothesis in each iteration
 ? don't care\\
@@ -452,6 +472,10 @@ Divide and conquer log n to find $\theta$ for decision stump (one node of decisi
 \\
 If it is in the wrong class, then the weight of the misclassified is increased, shrink those that are correct\\\\
 Random forest (Feature subspaces) \\
+Does not use all the data\\
+\\
+To classify new data, \\
+Same as any other ensembling method\\ Give the input to all the trees\\ And take the vote\\ \\\\
 Bagging - Sample with replacement\\
 Diversity in features\\
 Some subset of features\\
@@ -459,10 +483,89 @@ Some subset of features\\
 Ensemble usage\\
 Continuously verify the presence of the user
 \\\\
+Adaboost\\
+1. Find a weak estimator
+\\2. Update the weights, to classify incorrect inputs to be correct
+\\3. Find another estimator
+\\
+If we take the best hypothesis, error rate is larger than 0.5, then no estimator will give a better result
+\\
+Based on probabilities, not all positives/ negatives\\
 To lower variance: \\
 DTL - pruning\\
 Bootstrap - Average to lower variance\\
 \\
 To have more variation: \\
 Feature projection for Random forest
+\subsection{Ethics of ML}
+Sensitive attributes: race, ethnicity, sex\\
+Fine line between personalization and in building our bias in the system\\\\
+Can look at correlations on search data\\
+\\
+Sometimes created by people themselves on social media, what people like, or malicious users when the user is not at home\\\\
+Quantifying the risk\\
+Techniques that can preserve those properties, privacy-preserving, fair and explanable\\
+Defense mechanisms - don't want to share the data, share compressed data so everyone can benefit from the data without leaking the information
+\\
+Trustworthy ML - large capacity if u expect the model to do very well, vulnerable to data leakage or manipulation attacks. 
+\\
+When is trained to be more fair, it can craft more data in the final model compared to the model that is not fair, data poisoning 
+\\
+Robust to data poisoning, can i trust in a typical setting\\
+Critic-ability, can it convince me? Is it trustworthy?\\
+Fairness, privacy and robustness\\\\
+Engineering bias in the machine learning algorithm\\
+Hiding corrupt practices behind mathematics\\
+Going through the data to double/ triple check\\
+Triplet ratings, build a machine and scale it in a massive international scale
+\\
+ML vs Mathematics - Predict people instead of markets\\
+\\
+Algorithms are nothing more than opinions embedded in code\\
+1. Data u train the algorithm on\\
+2. Objective / Penalty at stake\\
+\\
+Make more meals that are success in the past\\
+There is an agenda that is imposed, person building the algorithm defines success, but may not be success for the stakeholders
+\\
+\\
+Widespread - 
+Mysterious - formula is not available, not aware they are being spotted. Constituency right to know what is right \\
+Destructive - Ruin people's lives unknowingly, opportunities taken from them, destructive feedback loops
+\\
+If u label a teacher as bad if the students' proficiency scores were bad
+\\
+Value added teacher model - It is better if they score more than expected, dinged for the points lower than expected
+\\
+Students should score higher in their finals, punished for previous teachers' teaching (elevated scores)\\
+\\
+Teachers should be able to understand how the scoring work\\
+Misusing personality tests, algorithms that sort through resumes\\
+\\
+Looks at who are successful in the past, picking out past patterns and repeating them\\
+\\
+Non violent crime are more prevalent and predictable
+\\
+Pre-emptive punishing people for things they haven't done\\
+Embedded in a risk score\\
+Go back to prison due to high risk scores\\
+Same algorithm, different use case can be very different\\
+Can be anonymous but related to the person in a precise way\\
+Build a model by construction is fair, alter the algorithm for fairness\\
+Big data is not a silver bullet, is just a tool\\
+How many miles for a self driving car for the teacher evaluation model
+\\
+Fairness to auditing\\
+Restrict people from using decision trees, if u have to explain why\\
+When to disclose? when it involves human preference and taste, subject to vetting
+\\
+Automatic bias, easy to use machine learning. But used only when there is no infrastructure.
+\\
+Group attribution, generalised to the distribution\\
+\\
+Implicit bias, not taking into fact of missing information
+\subsection*{EM - Expectation Maximization}
+Investigate one of the things (latent variables, membership) and hold the others constant (model)\\
+
+\includegraphics[height=7cm]{images/s5.png}
 \end{document}
