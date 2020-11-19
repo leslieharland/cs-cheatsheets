@@ -510,8 +510,12 @@ Number of pixels in the blob would give an indication of how many people are tog
 \\\\
 \\Suitable for large images
 \\\\
-Horn Schunck\\
+\textbf{Horn Schunck}\\
 Assumption: smooth flow field\\
+Is lambda is small that the flow goes to 0, then it gives a degenerate flow\\
+Then we have the smoothest possible flow, i.e. a constant flow field.\\
+We can also pick lambda to be extremely large, in which case there will be no smoothing at all.
+\\
 As a min problem, u and v to be small \\
 \\
 Each pixel flow can be different
@@ -581,6 +585,8 @@ Contribution to q is 0, does not contribute to descriptor value\\
 We are trying to pick out the points that have the colors\\
 Normalizing with the size of the target\\
 \\
+We use Bhattacharyya co-efficient as similarity measure (compare histograms) chosen as our feature,
+if we were using distance measure choose L2\\\\
 Bhattacharyya co-efficient, L2 is not very ideal for mean-shift\\
 Find the peak of mode
 or maximizing over all the possible locations y
