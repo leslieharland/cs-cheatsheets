@@ -19,8 +19,7 @@
 \\
 \includegraphics{images/b1}
 \\\subsection*{Is \_\_ in BCNF}
-1. Check if LHS not superkey \\
-2. Use armstrong axiom\\
+1. Check if LHS not superkey (Use armstrong axiom if necessary)\\
 \\\subsection*{Is \_\_ in 3NF}
 \\
 \includegraphics[height=1.5cm]{images/b5}\\
@@ -49,12 +48,15 @@ Prime attribute is the union of all possible keys
 2. Get closure of intersected based on F\\
 3. Check if any relation when intersected with the closure gives back the original relation
 \\
+\subsection*{Find BCNF decomposition}
 \includegraphics[height=10cm]{images/b8}
 \subsection*{Is dp}\\
+Only calculated the attribute closure of LHS attributes of F[R1]... F[Rn]\\
 \includegraphics[height=3cm]{images/b9}
 \subsection*{Minimum cover}\\
 For each attribute on LHS, check if they are redundant and remove them\\
 Consider R(A,B,C,D,E) with \\F = $\{AB \rightarrow CDE, AC  \rightarrow BDE, B  \rightarrow D, C  \rightarrow B, C  \rightarrow D, B  \rightarrow E\}$\\
+Make sure all the Fds provided are logically implied
 \includegraphics[height=1.5cm]{images/b11}
 \subsection*{Find a lossless-join dependency-preserving valid decomposition of R into 3NF}\\
 Use synthesis method\\
@@ -64,6 +66,14 @@ Use synthesis method\\
 4. Add key to schema\\
 5. Remove redundant schemas (subset of other schemas)\\
 \includegraphics[height=3cm]{images/b12}
+\subsection*{Armstrong axioms}
+\includegraphics[height=3cm]{images/b13}
+\includegraphics[height=3cm]{images/b14}
+\subsection*{ISA}
+\includegraphics[height=3cm]{images/b15}
+\subsection*{ER}
+entA $\rightarrow$ ent\\
+ entA can uniquely identify all other entities
 \end{multicols*}
 
 \end{document}
